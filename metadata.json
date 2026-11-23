@@ -1,0 +1,6 @@
+{
+  "name": "Gemini Chat",
+  "description": "Fast, lightweight Gemini AI chatbot with persistent local chat history and conversation management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
