@@ -78,7 +78,7 @@ function parseGeminiError(err: unknown): {
   if (
     rawMessage.includes("API_KEY_INVALID") ||
     rawMessage.includes("PERMISSION_DENIED") ||
-    rawMessage.includes("GEMINI_API_KEY is not configured")
+    rawMessage.toLowerCase().includes("gemini api key is not configured")
   ) {
     return {
       status: 403,
@@ -343,7 +343,7 @@ async function startServer() {
   } else {
     const distPath = path.resolve(__dirname, "dist");
     app.use(express.static(distPath));
-    app.get("/{*path}", (_req: Request, res: Response) => {
+    app.get("*", (_req: Request, res: Response) => {
       res.sendFile(path.join(distPath, "index.html"));
     });
   }

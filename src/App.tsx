@@ -157,7 +157,7 @@ export default function App() {
       let receivedAnyText = false;
 
       try {
-        const response = await fetch("/api/chat", {
+        const response = await fetch("./api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           signal: controller.signal,
@@ -170,12 +170,15 @@ export default function App() {
         });
 
         if (!response.ok) {
-          let errMsg = `Request failed (${response.status}).`;
+          let errMsg =
+            response.status === 404
+              ? "Chat service is temporarily unavailable (404). Please reload the page or click Retry."
+              : `Request failed (${response.status}).`;
           try {
             const payload = (await response.json()) as { error?: string };
             if (payload.error) errMsg = payload.error;
           } catch {
-            // Keep generic status message
+            // Keep fallback message when response is not JSON
           }
           throw new Error(errMsg);
         }
